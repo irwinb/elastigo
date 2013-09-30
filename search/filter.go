@@ -14,8 +14,6 @@ package search
 import (
 	"encoding/json"
 	"fmt"
-
-	. "github.com/araddon/gou"
 )
 
 var (

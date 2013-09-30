@@ -14,15 +14,14 @@ package core
 import (
 	"bytes"
 	"encoding/json"
-	u "github.com/araddon/gou"
+	"errors"
+	"fmt"
 	"github.com/mattbaird/elastigo/api"
 	"io"
 	"log"
 	"strconv"
 	"sync"
 	"time"
-	"fmt"
-	"errors"
 )
 
 var (
@@ -171,11 +170,11 @@ func (b *BulkIndexor) Flush() {
 		select {
 		case <-wgChan(b.sendWg):
 			// done
-			u.Info("Normal Wait Group Shutdown")
+			// u.Info("Normal Wait Group Shutdown")
 			return
 		case <-time.After(time.Second * time.Duration(MAX_SHUTDOWN_SECS)):
 			// timeout!
-			u.Error("Timeout in Shutdown!")
+			// u.Error("Timeout in Shutdown!")
 			return
 		}
 	}
@@ -274,7 +273,7 @@ func (b *BulkIndexor) Index(index string, _type string, id, ttl string, date *ti
 	//{ "index" : { "_index" : "test", "_type" : "type1", "_id" : "1" } }
 	by, err := WriteBulkBytes("index", index, _type, id, ttl, date, data)
 	if err != nil {
-		u.Error(err)
+		// u.Error(err)
 		return err
 	}
 	b.bulkChannel <- by
@@ -285,7 +284,7 @@ func (b *BulkIndexor) Update(index string, _type string, id, ttl string, date *t
 	//{ "index" : { "_index" : "test", "_type" : "type1", "_id" : "1" } }
 	by, err := WriteBulkBytes("update", index, _type, id, ttl, date, data)
 	if err != nil {
-		u.Error(err)
+		// u.Error(err)
 		return err
 	}
 	b.bulkChannel <- by
@@ -321,7 +320,7 @@ func WriteBulkBytes(op string, index string, _type string, id, ttl string, date 
 	buf.WriteString(`","_id":"`)
 	buf.WriteString(id)
 
-	if op == "update"  {
+	if op == "update" {
 		buf.WriteString(`","retry_on_conflict":"3`)
 		buf.WriteString(ttl)
 	}
@@ -355,7 +354,6 @@ func WriteBulkBytes(op string, index string, _type string, id, ttl string, date 
 	buf.WriteByte('\n')
 	return buf.Bytes(), nil
 }
-
 
 // The index bulk API adds or updates a typed JSON document to a specific index, making it searchable.
 // it operates by buffering requests, and ocassionally flushing to elasticsearch
@@ -409,7 +407,6 @@ func IndexBulkTtl(index string, _type string, id, ttl string, date *time.Time, d
 	GlobalBulkIndexor.bulkChannel <- by
 	return nil
 }
-
 
 func UpdateBulkTtl(index string, _type string, id, ttl string, date *time.Time, data interface{}) error {
 	//{ "update" : { "_index" : "test", "_type" : "type1", "_id" : "1" } }

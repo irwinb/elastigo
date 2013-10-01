@@ -14,7 +14,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/mattbaird/elastigo/api"
+	"github.com/irwinb/elastigo/api"
 )
 
 // MoreLikeThis allows the caller to get documents that are “like” a specified document.

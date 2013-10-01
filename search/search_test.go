@@ -13,7 +13,7 @@ package search
 
 import (
 	u "github.com/araddon/gou"
-	"github.com/mattbaird/elastigo/core"
+	"github.com/irwinb/elastigo/core"
 	"log"
 	"testing"
 )

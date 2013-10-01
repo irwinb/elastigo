@@ -17,7 +17,7 @@ import (
 	"encoding/json"
 	"flag"
 	u "github.com/araddon/gou"
-	"github.com/mattbaird/elastigo/api"
+	"github.com/irwinb/elastigo/api"
 	"log"
 	"strconv"
 	"testing"

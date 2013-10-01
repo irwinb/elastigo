@@ -16,7 +16,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/mattbaird/elastigo/api"
+	"github.com/irwinb/elastigo/api"
 	"io"
 	"log"
 	"strconv"

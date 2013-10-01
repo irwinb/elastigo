@@ -41,6 +41,7 @@ var (
 )
 
 func ElasticSearchRequest(method, path string) (*Request, error) {
+	log.Println("ElasticSearchRequest:" + Domain)
 	req, err := http.NewRequest(method, fmt.Sprintf("%s://%s:%s%s", Protocol, Domain, Port, path), nil)
 	if err != nil {
 		return nil, err
